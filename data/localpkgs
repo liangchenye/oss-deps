@@ -1,0 +1,22 @@
+[
+	  {
+	    "Name": "A",
+	    "Version": "1.0.0",
+	    "MVersion": "",
+	    "BuildRequires": [
+	      {
+	        "Name": "B",
+	        "Oper": "",
+	        "Version": ""
+	      }
+	    ],
+	    "Requires": null
+	  },
+	  {
+	    "Name": "B",
+	    "Version": "2.0.0",
+	    "MVersion": "",
+	    "BuildRequires": null,
+	    "Requires": null
+	  }
+	]

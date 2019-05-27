@@ -1,4 +1,4 @@
-package utils
+package pkg
 
 //import "fmt"
 
@@ -24,9 +24,4 @@ type Package struct {
 	BuildRequires []Requirement
 	// Requires: the required package name/version... in running
 	Requires []Requirement
-
-	// DevURL: git url: used to get all the source code
-	DevURL string
-	//ReleaseURL: I removed it, it is an artifactory way
-	//ReleaseURL string
 }

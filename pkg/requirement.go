@@ -1,4 +1,4 @@
-package utils
+package pkg
 
 import (
 	"fmt"
@@ -6,6 +6,8 @@ import (
 
 	"github.com/hashicorp/go-version"
 )
+
+var reqRe, _ = regexp.Compile(`([\w\.\-]+)[\s]*([\=|>|>\=|<\=|<|]*)[\s]*([\w\.\-]*)`)
 
 // Requirement: it is just a simple way
 // the complicate situation will be:
@@ -21,10 +23,7 @@ type Requirement struct {
 }
 
 func NewRequirement(req string) (require Requirement, err error) {
-	//	re, _ := regexp.Compile("([0-9a-zA-Z_-])+
-	re, _ := regexp.Compile(`([\w\.\-]+)[\s]*([\=|>|>\=|<\=|<|]*)[\s]*([\w\.\-]*)`)
-
-	strs := re.FindStringSubmatch(req)
+	strs := reqRe.FindStringSubmatch(req)
 	if len(strs) == 4 {
 		require.Name = strs[1]
 		require.Oper = strs[2]

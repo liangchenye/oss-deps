@@ -77,6 +77,11 @@ func (lh *LocalService) GetTrains() (trains []pkg.Train, err error) {
 		return
 	}
 
+	for ti := range trains {
+		for i := range trains[ti].Packages {
+			trains[ti].Packages[i].DevSource, _ = lh.GetSource(trains[ti].Packages[i])
+		}
+	}
 	return
 }
 

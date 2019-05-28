@@ -9,6 +9,7 @@ const (
 	SourceProtocalGit  = "git"
 )
 
+// TODO: SHOULD conside the loop dependency!!
 type Source struct {
 	Protocal string
 	URL      string
@@ -37,8 +38,8 @@ type Package struct {
 	// Requires: the required package name/version... in running
 	Requires []Requirement
 
-	brLeaf []Package
-	rLeaf  []Package
+	BRLeaf []Package
+	RLeaf  []Package
 
 	DevSource Source
 }
@@ -56,11 +57,35 @@ func (p *Package) BRTree(pkgData []Package) []error {
 			if subErrs != nil {
 				errs = append(errs, subErrs...)
 			} else {
-				p.brLeaf = append(p.brLeaf, subPkg)
+				p.BRLeaf = append(p.BRLeaf, subPkg)
 			}
 		}
 	}
 	return errs
+}
+
+func (p *Package) BRList() []Package {
+	var pkgs []Package
+	visited := make(map[string]bool)
+	pkgs = append([]Package{*p}, pkgs...)
+	visited[p.Name] = true
+	for _, br := range p.BRLeaf {
+		if _, ok := visited[br.Name]; ok {
+			continue
+		}
+		subPkgs := br.BRList()
+		// BR is sorted
+		for i := len(subPkgs) - 1; i >= 0; i-- {
+			if _, ok := visited[subPkgs[i].Name]; ok {
+				continue
+			}
+
+			pkgs = append([]Package{subPkgs[i]}, pkgs...)
+			visited[subPkgs[i].Name] = true
+		}
+	}
+
+	return pkgs
 }
 
 func (p *Package) PrettyDebug(tabs int) {
@@ -68,7 +93,7 @@ func (p *Package) PrettyDebug(tabs int) {
 		fmt.Printf("\t")
 	}
 	fmt.Println(p.Name, p.Version)
-	for _, br := range p.brLeaf {
+	for _, br := range p.BRLeaf {
 		br.PrettyDebug(tabs + 1)
 	}
 }

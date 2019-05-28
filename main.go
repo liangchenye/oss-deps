@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/liangchenye/oss-deps/hub"
@@ -36,8 +37,18 @@ func main() {
 	}
 
 	errs := goodPkg.BRTree(pkgs)
+
+	goodBytes, _ := json.MarshalIndent(goodPkg, "\t", " ")
+	fmt.Println(string(goodBytes))
+
 	if errs == nil {
 		goodPkg.PrettyDebug(0)
+
+		fmt.Println("turn into list")
+		goodList := goodPkg.BRList()
+		for _, p := range goodList {
+			fmt.Println(p.Name, p.Version)
+		}
 	} else {
 		fmt.Println(goodPkg)
 	}

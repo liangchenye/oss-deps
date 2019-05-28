@@ -21,6 +21,8 @@
 	      }
 	    ],
 	    "Requires": null,
+	    "BRLeaf": null,
+	    "RLeaf": null,
 	    "DevSource": {
 	      "Protocal": "",
 	      "URL": ""
@@ -32,12 +34,14 @@
 	    "MVersion": "",
 	    "BuildRequires": [
 	      {
-	        "Name": "GoodC",
-	        "Oper": "\u003e",
+	        "Name": "GoodD",
+	        "Oper": "\u003c",
 	        "Version": "1.1"
 	      }
 	    ],
 	    "Requires": null,
+	    "BRLeaf": null,
+	    "RLeaf": null,
 	    "DevSource": {
 	      "Protocal": "",
 	      "URL": ""
@@ -49,6 +53,8 @@
 	    "MVersion": "",
 	    "BuildRequires": null,
 	    "Requires": null,
+	    "BRLeaf": null,
+	    "RLeaf": null,
 	    "DevSource": {
 	      "Protocal": "",
 	      "URL": ""
@@ -60,6 +66,8 @@
 	    "MVersion": "",
 	    "BuildRequires": null,
 	    "Requires": null,
+	    "BRLeaf": null,
+	    "RLeaf": null,
 	    "DevSource": {
 	      "Protocal": "",
 	      "URL": ""
@@ -77,6 +85,8 @@
 	      }
 	    ],
 	    "Requires": null,
+	    "BRLeaf": null,
+	    "RLeaf": null,
 	    "DevSource": {
 	      "Protocal": "",
 	      "URL": ""
@@ -88,6 +98,8 @@
 	    "MVersion": "",
 	    "BuildRequires": null,
 	    "Requires": null,
+	    "BRLeaf": null,
+	    "RLeaf": null,
 	    "DevSource": {
 	      "Protocal": "",
 	      "URL": ""

@@ -4,27 +4,35 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/liangchenye/oss-deps/hub"
 	"github.com/liangchenye/oss-deps/pkg"
+	"github.com/liangchenye/oss-deps/service"
 )
 
 func main() {
 	localConfig := make(map[string]string)
-	localConfig["meta-url"] = "./data/local/meta"
-	localConfig["data-dir"] = "./data/local"
-	if err := hub.SetDefault("local"); err != nil {
+	localConfig["train-meta-url"] = "./test/local/trainmeta"
+	localConfig["meta-url"] = "./test/local/meta"
+	localConfig["data-dir"] = "./test/local"
+	if err := service.SetDefault("local"); err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	h, err := hub.GetDefault()
+	h, err := service.GetDefault()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
 	h.Init(localConfig)
-	pkgs, _ := h.GetPackages()
+
+	trains, _ := h.GetTrains()
+	pkgs, _ := h.GetPackagesFromTrain(trains[0])
+	fmt.Println(pkgs)
+
+	fmt.Println("---------------")
+
+	pkgs, _ = h.GetPackages()
 	var goodPkg pkg.Package
 	var badPkg pkg.Package
 
@@ -47,10 +55,10 @@ func main() {
 		fmt.Println("turn into list")
 		goodList := goodPkg.BRList()
 		for _, p := range goodList {
-			fmt.Println(p.Name, p.Version)
+			fmt.Println(p.Name, p.Version, p.DevSource)
 		}
 	} else {
-		fmt.Println(goodPkg)
+		fmt.Println(goodPkg, goodPkg.DevSource)
 	}
 
 	fmt.Println("\n\n")

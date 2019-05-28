@@ -1,4 +1,4 @@
-package hub
+package service
 
 import (
 	"fmt"
@@ -6,25 +6,28 @@ import (
 	"github.com/liangchenye/oss-deps/pkg"
 )
 
-type Hub interface {
+type Service interface {
 	Init(config map[string]string) error
+	GetTrains() ([]pkg.Train, error)
+	GetPackagesFromTrain(train pkg.Train) ([]pkg.Package, error)
+	// Get all packages
 	GetPackages() ([]pkg.Package, error)
 }
 
 var (
 	defaultName string
-	hubs        = make(map[string]Hub)
+	services    = make(map[string]Service)
 )
 
 // TODO: add a mutex
-func Register(name string, h Hub) error {
-	hubs[name] = h
+func Register(name string, h Service) error {
+	services[name] = h
 	return nil
 }
 
 // SetDefault
 func SetDefault(name string) error {
-	for storedName := range hubs {
+	for storedName := range services {
 		if storedName == name {
 			defaultName = name
 			return nil
@@ -35,12 +38,12 @@ func SetDefault(name string) error {
 }
 
 // Default
-func GetDefault() (Hub, error) {
-	for storedName, h := range hubs {
+func GetDefault() (Service, error) {
+	for storedName, h := range services {
 		if defaultName == storedName {
 			return h, nil
 		}
 	}
-	var h Hub
-	return h, fmt.Errorf("cannot get the default hub service")
+	var h Service
+	return h, fmt.Errorf("cannot get the default service service")
 }

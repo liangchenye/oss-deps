@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 
 	"github.com/liangchenye/oss-deps/pkg"
@@ -21,6 +20,17 @@ var testPkgData = []pkg.Package{
 	pkg.Package{Name: "BadB", Version: "0.9"},
 }
 
+var testTrainData = []pkg.Train{
+	pkg.Train{Name: "CleanOS", Version: "1.0",
+		Packages: []pkg.Package{{Name: "GoodA", Version: "1.0.0"},
+			{Name: "GoodB", Version: "2.0.0"},
+			{Name: "GoodC", Version: "1.1.1"},
+			{Name: "GoodD", Version: "1.0"},
+		}},
+	pkg.Train{Name: "CleanOS", Version: "2.0",
+		Packages: []pkg.Package{{Name: "BadA", Version: "1.0.0"}}},
+}
+
 func Exporter(filename string) error {
 	content, _ := json.MarshalIndent(testPkgData, "\t", "  ")
 
@@ -28,8 +38,11 @@ func Exporter(filename string) error {
 }
 
 func main() {
-	output := "./meta"
-	if err := Exporter(output); err != nil {
-		fmt.Println(err)
-	}
+	pkgData := "./meta"
+	content, _ := json.MarshalIndent(testPkgData, "\t", "  ")
+	ioutil.WriteFile(pkgData, content, 0644)
+
+	trainData := "./trainmeta"
+	content, _ = json.MarshalIndent(testTrainData, "\t", " ")
+	ioutil.WriteFile(trainData, content, 0644)
 }

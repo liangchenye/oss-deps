@@ -1,4 +1,4 @@
-package hub
+package service
 
 import (
 	"encoding/json"
@@ -15,16 +15,23 @@ const (
 	localSourceProtocal = pkg.SourceProtocalFile
 )
 
-type LocalHub struct {
-	MetaURL string
-	DataDir string
+type LocalService struct {
+	TrainMetaURL string
+	MetaURL      string
+	DataDir      string
 }
 
 func init() {
-	Register(localName, &LocalHub{})
+	Register(localName, &LocalService{})
 }
 
-func (lh *LocalHub) Init(data map[string]string) error {
+func (lh *LocalService) Init(data map[string]string) error {
+	if v, ok := data["train-meta-url"]; !ok {
+		return errors.New("no 'train-meta-url' provided")
+	} else {
+		lh.TrainMetaURL = v
+	}
+
 	if v, ok := data["meta-url"]; !ok {
 		return errors.New("no 'meta-url' provided")
 	} else {
@@ -41,7 +48,7 @@ func (lh *LocalHub) Init(data map[string]string) error {
 }
 
 // GetSource: this is where the standards work
-func (lh *LocalHub) GetSource(p pkg.Package) (pkg.Source, error) {
+func (lh *LocalService) GetSource(p pkg.Package) (pkg.Source, error) {
 	var s pkg.Source
 	s.Protocal = localSourceProtocal
 	// no maintainance
@@ -59,8 +66,26 @@ func (lh *LocalHub) GetSource(p pkg.Package) (pkg.Source, error) {
 	return s, nil
 }
 
+func (lh *LocalService) GetTrains() (trains []pkg.Train, err error) {
+	data, err := ioutil.ReadFile(lh.TrainMetaURL)
+	if err != nil {
+		return
+	}
+
+	err = json.Unmarshal(data, &trains)
+	if err != nil {
+		return
+	}
+
+	return
+}
+
+func (lh *LocalService) GetPackagesFromTrain(train pkg.Train) (pkgs []pkg.Package, err error) {
+	return train.Packages, nil
+}
+
 // TODO: add a cache?
-func (lh *LocalHub) GetPackages() (pkgs []pkg.Package, err error) {
+func (lh *LocalService) GetPackages() (pkgs []pkg.Package, err error) {
 	data, err := ioutil.ReadFile(lh.MetaURL)
 	if err != nil {
 		return

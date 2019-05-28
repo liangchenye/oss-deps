@@ -1,0 +1,79 @@
+[
+	 {
+	  "Name": "CleanOS",
+	  "Version": "1.0",
+	  "Packages": [
+	   {
+	    "Name": "GoodA",
+	    "Version": "1.0.0",
+	    "MVersion": "",
+	    "BuildRequires": null,
+	    "Requires": null,
+	    "BRLeaf": null,
+	    "RLeaf": null,
+	    "DevSource": {
+	     "Protocal": "",
+	     "URL": ""
+	    }
+	   },
+	   {
+	    "Name": "GoodB",
+	    "Version": "2.0.0",
+	    "MVersion": "",
+	    "BuildRequires": null,
+	    "Requires": null,
+	    "BRLeaf": null,
+	    "RLeaf": null,
+	    "DevSource": {
+	     "Protocal": "",
+	     "URL": ""
+	    }
+	   },
+	   {
+	    "Name": "GoodC",
+	    "Version": "1.1.1",
+	    "MVersion": "",
+	    "BuildRequires": null,
+	    "Requires": null,
+	    "BRLeaf": null,
+	    "RLeaf": null,
+	    "DevSource": {
+	     "Protocal": "",
+	     "URL": ""
+	    }
+	   },
+	   {
+	    "Name": "GoodD",
+	    "Version": "1.0",
+	    "MVersion": "",
+	    "BuildRequires": null,
+	    "Requires": null,
+	    "BRLeaf": null,
+	    "RLeaf": null,
+	    "DevSource": {
+	     "Protocal": "",
+	     "URL": ""
+	    }
+	   }
+	  ]
+	 },
+	 {
+	  "Name": "CleanOS",
+	  "Version": "2.0",
+	  "Packages": [
+	   {
+	    "Name": "BadA",
+	    "Version": "1.0.0",
+	    "MVersion": "",
+	    "BuildRequires": null,
+	    "Requires": null,
+	    "BRLeaf": null,
+	    "RLeaf": null,
+	    "DevSource": {
+	     "Protocal": "",
+	     "URL": ""
+	    }
+	   }
+	  ]
+	 }
+	]

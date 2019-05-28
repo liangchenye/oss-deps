@@ -7,7 +7,7 @@ import (
 )
 
 type Hub interface {
-	Init(url string) error
+	Init(config map[string]string) error
 	GetPackages() ([]pkg.Package, error)
 }
 

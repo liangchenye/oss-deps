@@ -37,6 +37,7 @@ func NewRequirement(req string) (require Requirement, err error) {
 	return
 }
 
+// TODO? change 'bool' to 'error'?
 func (r *Requirement) Match(Name string, Version string) bool {
 	if r.Name != Name {
 		return false
@@ -69,4 +70,15 @@ func (r *Requirement) Match(Name string, Version string) bool {
 	}
 
 	return false
+}
+
+func (r *Requirement) Find(pkgs []Package) (Package, error) {
+	for _, pkg := range pkgs {
+		if r.Match(pkg.Name, pkg.Version) {
+			return pkg, nil
+		}
+	}
+
+	var pkg Package
+	return pkg, fmt.Errorf("cannot find matched package '%s'-'%s'-'%s'", r.Name, r.Oper, r.Version)
 }

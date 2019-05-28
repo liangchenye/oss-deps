@@ -1,0 +1,96 @@
+[
+	  {
+	    "Name": "GoodA",
+	    "Version": "1.0.0",
+	    "MVersion": "",
+	    "BuildRequires": [
+	      {
+	        "Name": "GoodB",
+	        "Oper": "",
+	        "Version": ""
+	      },
+	      {
+	        "Name": "GoodC",
+	        "Oper": "",
+	        "Version": ""
+	      },
+	      {
+	        "Name": "GoodD",
+	        "Oper": "",
+	        "Version": ""
+	      }
+	    ],
+	    "Requires": null,
+	    "DevSource": {
+	      "Protocal": "",
+	      "URL": ""
+	    }
+	  },
+	  {
+	    "Name": "GoodB",
+	    "Version": "2.0.0",
+	    "MVersion": "",
+	    "BuildRequires": [
+	      {
+	        "Name": "GoodC",
+	        "Oper": "\u003e",
+	        "Version": "1.1"
+	      }
+	    ],
+	    "Requires": null,
+	    "DevSource": {
+	      "Protocal": "",
+	      "URL": ""
+	    }
+	  },
+	  {
+	    "Name": "GoodC",
+	    "Version": "1.1.1",
+	    "MVersion": "",
+	    "BuildRequires": null,
+	    "Requires": null,
+	    "DevSource": {
+	      "Protocal": "",
+	      "URL": ""
+	    }
+	  },
+	  {
+	    "Name": "GoodD",
+	    "Version": "1.0",
+	    "MVersion": "",
+	    "BuildRequires": null,
+	    "Requires": null,
+	    "DevSource": {
+	      "Protocal": "",
+	      "URL": ""
+	    }
+	  },
+	  {
+	    "Name": "BadA",
+	    "Version": "1.0.0",
+	    "MVersion": "",
+	    "BuildRequires": [
+	      {
+	        "Name": "BadB",
+	        "Oper": "\u003e",
+	        "Version": "1.0"
+	      }
+	    ],
+	    "Requires": null,
+	    "DevSource": {
+	      "Protocal": "",
+	      "URL": ""
+	    }
+	  },
+	  {
+	    "Name": "BadB",
+	    "Version": "0.9",
+	    "MVersion": "",
+	    "BuildRequires": null,
+	    "Requires": null,
+	    "DevSource": {
+	      "Protocal": "",
+	      "URL": ""
+	    }
+	  }
+	]

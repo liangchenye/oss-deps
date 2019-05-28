@@ -1,6 +1,18 @@
 package pkg
 
-//import "fmt"
+import (
+	"fmt"
+)
+
+const (
+	SourceProtocalFile = "file"
+	SourceProtocalGit  = "git"
+)
+
+type Source struct {
+	Protocal string
+	URL      string
+}
 
 // Package is used for orchestration
 // it is just like rpm spec
@@ -24,4 +36,39 @@ type Package struct {
 	BuildRequires []Requirement
 	// Requires: the required package name/version... in running
 	Requires []Requirement
+
+	brLeaf []Package
+	rLeaf  []Package
+
+	DevSource Source
+}
+
+// BRtree: generate the tree of build requires
+func (p *Package) BRTree(pkgData []Package) []error {
+	// TODO: using multip error
+	var errs []error
+	for _, br := range p.BuildRequires {
+		subPkg, err := br.Find(pkgData)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			subErrs := subPkg.BRTree(pkgData)
+			if subErrs != nil {
+				errs = append(errs, subErrs...)
+			} else {
+				p.brLeaf = append(p.brLeaf, subPkg)
+			}
+		}
+	}
+	return errs
+}
+
+func (p *Package) PrettyDebug(tabs int) {
+	for i := 0; i < tabs; i++ {
+		fmt.Printf("\t")
+	}
+	fmt.Println(p.Name, p.Version)
+	for _, br := range p.brLeaf {
+		br.PrettyDebug(tabs + 1)
+	}
 }

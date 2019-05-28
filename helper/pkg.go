@@ -8,10 +8,17 @@ import (
 	"github.com/liangchenye/oss-deps/pkg"
 )
 
+// TODO: add more cases
 var testPkgData = []pkg.Package{
-	pkg.Package{Name: "A", Version: "1.0.0",
-		BuildRequires: []pkg.Requirement{{Name: "B"}}},
-	pkg.Package{Name: "B", Version: "2.0.0"},
+	pkg.Package{Name: "GoodA", Version: "1.0.0",
+		BuildRequires: []pkg.Requirement{{Name: "GoodB"}, {Name: "GoodC"}, {Name: "GoodD"}}},
+	pkg.Package{Name: "GoodB", Version: "2.0.0",
+		BuildRequires: []pkg.Requirement{{Name: "GoodC", Oper: ">", Version: "1.1"}}},
+	pkg.Package{Name: "GoodC", Version: "1.1.1"},
+	pkg.Package{Name: "GoodD", Version: "1.0"},
+	pkg.Package{Name: "BadA", Version: "1.0.0",
+		BuildRequires: []pkg.Requirement{{Name: "BadB", Oper: ">", Version: "1.0"}}},
+	pkg.Package{Name: "BadB", Version: "0.9"},
 }
 
 func Exporter(filename string) error {
@@ -21,7 +28,7 @@ func Exporter(filename string) error {
 }
 
 func main() {
-	output := "/tmp/localpkgs"
+	output := "./meta"
 	if err := Exporter(output); err != nil {
 		fmt.Println(err)
 	}
